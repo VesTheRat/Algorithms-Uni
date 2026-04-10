@@ -1,11 +1,11 @@
 # Algorytmy - projekt 2
 
 ## Implementacja 
-- [ ] Algorytm First Come First Served konstruowania drzewa Binary Search Tree (BST)
-    - [ ] Wyszukiwanie w drzewie elemntu o najmniejszej i najwięszkej wartości i wypisanie ścieżki 
-    - [ ] podanie poziomu drzewa gdzie znajduje się węzeł o kluczu wskazanym prez użytkownika oraz wypisanie wszystkich elementów znajdujących się na tym samym poziomie 
-    - [ ] Wypisanie wszystkich elementów drzewa w porządku malejącym z wykorzystaniem metody trawersowania drzewa binarnego
-    - [ ] Wypisanie w porządku pre-order poddrzewa, którego korzeń podaje użytkownik, podanie wysokości i usunięcie poddrzewa metodą post-order
+- [x] Algorytm First Come First Served konstruowania drzewa Binary Search Tree (BST)
+    - [x] Wyszukiwanie w drzewie elemntu o najmniejszej i najwięszkej wartości i wypisanie ścieżki 
+    - [x] podanie poziomu drzewa gdzie znajduje się węzeł o kluczu wskazanym prez użytkownika oraz wypisanie wszystkich elementów znajdujących się na tym samym poziomie 
+    - [x] Wypisanie wszystkich elementów drzewa w porządku malejącym z wykorzystaniem metody trawersowania drzewa binarnego
+    - [x] Wypisanie w porządku pre-order poddrzewa, którego korzeń podaje użytkownik, podanie wysokości i usunięcie poddrzewa metodą post-order
 
 - [ ] Algorytm konstruowania drzewa AVL wykorzystujący bisekcję i jeden z algorytmów sortowania o złożoności logarytmicznej
     - [ ] Wyszukiwanie w drzewie elemntu o najmniejszej i najwięszkej wartości i wypisanie ścieżki 
