@@ -6,7 +6,7 @@ import funkcje as f
 ### PROGRAM ###
 # dane = random.sample(range(0, 100), 15)
 dane = [4,6,3,5,8,2,6,0,9]
-tree = classes.BST()
+tree = BST()
 tree.build_bst_fcfs(dane)
 
 minVal, minPath = f.find_min_path(tree.node)
@@ -35,6 +35,6 @@ if wezel is not None:
     print(f"Wysokość poddrzewa: {f.get_height(wezel)}")
     tree.node = f.remove_from_parent(tree.node, klucz)
     print(f"Elementy pozostałe w drzewie:")
-    print_inOrderTraverse(tree.node)
+    f.print_inOrderTraverse(tree.node)
 else:
     print("Brak klucza w BST")
