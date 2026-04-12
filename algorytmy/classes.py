@@ -7,8 +7,9 @@ class Node:
 
 class AVL:
     def __init__(self,arr):
-        arr = quicksort(arr)
+        arr = self.quicksort(arr)
         self.node = self.avl(arr)
+    
     def avl(self,arr):
         if not arr:
             return None
@@ -18,6 +19,14 @@ class AVL:
         node.left = self.avl(arr[:middle_index])
         node.right = self.avl(arr[middle_index + 1:])
         return node
+
+    def quicksort(self, arr):
+        if len(arr) <= 1:
+            return arr
+        pivot = arr[-1]
+        left = [x for x in arr[:-1] if x < pivot]
+        right = [x for x in arr[:-1] if x >= pivot]
+        return self.quicksort(left) + [pivot] + self.quicksort(right)
 
 class BST:
     def __init__(self):
@@ -49,3 +58,27 @@ class BST:
             return
         for value in elements:
             self.node = self.insert(self.node, value)
+
+class hmin():
+    def __init__(self, data):
+        self.heap = data
+        self.build_heap()
+
+    def heapify(self, n, i):
+        smallest = i
+        left = 2 * i + 1
+        right = 2 * i + 2
+        if left < n and self.heap[left] < self.heap[smallest]:
+            smallest = left
+        if right < n and self.heap[right] < self.heap[smallest]:
+            smallest = right
+        if smallest != i:
+            self.heap[i], self.heap[smallest] = self.heap[smallest]
+            self.heapify(n, smallest)
+
+    def build_heap(self):
+        n = len(self.heap)
+        for i in range(n//2-1, -1, -1):
+            self.heapify(n, i)
+
+
