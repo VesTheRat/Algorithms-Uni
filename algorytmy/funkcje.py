@@ -1,3 +1,5 @@
+from classes import Node, HMIN
+
 ### FUNKCJE ###
 def print_inOrderTraverse(node):
     if node is not None:
@@ -116,7 +118,7 @@ def get_path_hmin(heap, index):
 def find_min_hmin(heap):
     if not heap.heap: 
         return None
-    return heap.heap[0], heap.get_path(0)
+    return heap.heap[0], get_path_hmin(heap, 0)
 
 def find_max_hmin(heap):
     if not heap.heap:
@@ -129,14 +131,14 @@ def find_max_hmin(heap):
         if heap.heap[i] > max_v:
             max_v = heap.heap[i]
             max_i = i
-    return max_v, heap.get_path(max_i)
+    return max_v, get_path_hmin(heap, max_i)
 
 ###
 
 def find_level_hmin(heap, key):
     idx = -1
-    for i in range(len(heap)):
-        if heap[i] == key:
+    for i in range(len(heap.heap)):
+        if heap.heap[i] == key:
             idx = i
             break
     if idx == -1:
@@ -144,68 +146,66 @@ def find_level_hmin(heap, key):
     level = (idx + 1).bit_length() - 1
     start_idx = 2**level - 1
     end_idx = 2**(level + 1) - 1
-    elements_on_level = heap[start_idx : min(end_idx, len(heap))]
+    elements_on_level = heap.heap[start_idx : min(end_idx, len(heap.heap))]
     return level, elements_on_level
 
 ###
 
 def descending(heap):
-    temp_heap = list(heap)
+    temp_heap = list(heap.heap)
     n = len(temp_heap)
     sorted_elements = []
+    temp_hmin = HMIN(temp_heap)
     for i in range(n):
         sorted_elements.append(temp_heap[0])
-        temp_heap[0] = temp_heap[len(temp_heap)-1]
-        temp_heap.pop()
-        if temp_heap:
-            temp_heap.heapify(len(temp_heap), 0)
-    return sorted_element[::-1]
+        if len(temp_hmin.heap) > 1:
+            temp_hmin.heap[0] = temp_hmin.heap.pop()
+            temp_hmin.heapify(len(temp_hmin.heap), 0)
+        else:
+            temp_hmin.heap.pop()
+    return sorted_elements[::-1]
 
 ###
+def get_heap_substructure(heap,key):
+    heap_list = heap.heap
+    try:
+        root_idx = heap_list.index(key)
+    except ValueError:
+        return None, 0, []
 
-def get_children(i):
-    left = 2*i+1
-    right = 2*i+2
-    lista = []
-    if left < len(heap): lista.append(left)
-    if right < len(heap): lista.appned(right)
-    return lista
+    def get_children_idx(i):
+        left = 2*i+1
+        right = 2*i+2
+        res = []
+        if left < len(heap_list): res.append(left)
+        if right < len(heap_list): res.append(right)
+        return res
 
-def pre_order(i):
-    x = [heap[i]]
-    for child in get_children(i):
-        x.extend(pre_order(child))
-    return res
+    def pre_order_collect(i):
+        res = [heap_list[i]]
+        for child in get_children_idx(i):
+            res.extend(pre_order_collect(child))
+        return res
+    
+    def get_h(i):
+        children = get_children_idx(i)
+        if not children:
+            return 0
+        return 1 + max(get_h(c) for c in children)
 
-def get_height(i):
-    children = get_children(i)
-    if not children:
-        return 0
-    return 1 + max(get_height(c) for c in children)
+    def get_all_descendant_indices(i):
+        indices = [i]
+        for child in get_children_idx(i):
+            indices.extend(get_all_descendant_indices(child))
+        return indices
 
-def post_order_indices(i):
-    indices = []
-    for child in get_children(i):
-        indices.extend(post_order_indices(child))
-    indices.append(i)
-    return indices
-
-def get_heap_substructure(heap, key):
-    root = -1
-    for i in range(len(heap)):
-        if heap[i] == key:
-            root = i
-            break
-    if root == -1:
-        print("Brak klucza")
-        return
-    poddrzewo = pre_order(root)
-    wysokość = get_height(root)
-    remove = post_order_indices(root)
-    heap = [heap[i] for i in remove]
-    for i in sorted(remove, reverse=True):
-        heap.pop[i]
-    after_removal = heap
-    return poddrzewo, height, after_removal
+    poddrzewo = pre_order_collect(root_idx)
+    wysokosc = get_h(root_idx)
+    indices_to_remove = sorted(get_all_descendant_indices(root_idx), reverse=True)
+    new_heap = list(heap_list)
+    for idx in indices_to_remove:
+        new_heap.pop(idx)
+    
+    return poddrzewo, wysokosc, new_heap
 
     ###

@@ -73,7 +73,7 @@ class HMIN():
         if right < n and self.heap[right] < self.heap[smallest]:
             smallest = right
         if smallest != i:
-            self.heap[i], self.heap[smallest] = self.heap[smallest]
+            self.heap[i], self.heap[smallest] = self.heap[smallest], self.heap[i]
             self.heapify(n, smallest)
 
     def build_heap(self):

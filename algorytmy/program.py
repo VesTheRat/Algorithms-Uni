@@ -1,33 +1,31 @@
 from classes import BST, AVL, HMIN
 import funkcje as f
 import generator
-import random
 
 ### PROGRAM ###
-generator()
+generator.generator()
 
-with open("listy_sorted.txt", "r+", encoding='utf-8') as f:
-    tekst = f.read().split()
+with open("listy_sorted.txt", "r+", encoding='utf-8') as file:
+    tekst = file.read().split()
     
 dane = [int(x) for x in tekst]
 
-bst = BST()
-avl = AVL()
+bst_tree = BST()
+avl_tree = AVL(dane)
 hmin = HMIN(dane)
 
-bst.built_bst_fcfs(dane)
-avl.avl(dane)
+bst_tree.build_bst_fcfs(dane)
 
 print("BST: ")
-f.print_inOrderTraverse(bst)
-zrownowazone = f.balance_by_root_extraction(bst)
+f.print_inOrderTraverse(bst_tree.node)
+zrownowazone = f.balance_by_root_extraction(bst_tree.node)
 print("\nPo zrównoważeniu: ")
-f.inOrderTraverse(zrownowazone
+f.print_inOrderTraverse(zrownowazone)
 
 print("\nAVL: ", end="")
-f.print_inOrderTraverse(avl)
+f.print_inOrderTraverse(avl_tree.node)
 
-print(f"\nHMIN: {*hmin}")
+print(f"\nHMIN: {hmin.heap}")
 
 
 ### MENU ###
@@ -43,8 +41,8 @@ while True:
             minVal_avl, minPath_avl = f.find_min_path(avl_tree.node)
             maxVal_avl, maxPath_avl = f.find_max_path(avl_tree.node)
 
-            minVal_hmin, minPath_hmin = f.find_min_hmin(hmin.heap)
-            maxVal_hmin, maxPath_hmin = f.find_max_hmin(hmin.heap)
+            minVal_hmin, minPath_hmin = f.find_min_hmin(hmin)
+            maxVal_hmin, maxPath_hmin = f.find_max_hmin(hmin)
 
             print("BST: ")
             print(f"Min: {minVal_bst}, path: {minPath_bst}")
@@ -130,6 +128,8 @@ while True:
                 print(f"Poddrzewo: {node_hmin}")
                 print(f"Wysokość poddrzewa: {height_hmin}")
                 print(f"Elementy pozostałe w drzewie: {after_removal_hmin}")
+                hmin.heap = after_removal_hmin
+                hmin.build_heap()
 
         case "5":
             break

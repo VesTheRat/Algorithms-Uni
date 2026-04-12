@@ -1,3 +1,5 @@
+import random
+
 #generator i zapis danych do plików
 def generator():
     n = [10,50,100,500,1000]
