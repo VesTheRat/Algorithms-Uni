@@ -59,7 +59,7 @@ class BST:
         for value in elements:
             self.node = self.insert(self.node, value)
 
-class hmin():
+class HMIN():
     def __init__(self, data):
         self.heap = data
         self.build_heap()
