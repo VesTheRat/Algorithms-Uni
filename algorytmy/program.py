@@ -9,6 +9,7 @@ with open("listy_sorted.txt", "r+", encoding='utf-8') as file:
     tekst = file.read().split()
     
 dane = [int(x) for x in tekst]
+print(dane)
 
 bst_tree = BST()
 avl_tree = AVL(dane)
